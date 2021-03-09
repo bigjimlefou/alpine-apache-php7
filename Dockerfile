@@ -69,11 +69,11 @@ RUN echo '*** Apache modules...' \
     && sed -i "s/#LoadModule\ cache_module/LoadModule\ cache_module/" /etc/apache2/httpd.conf \
     && sed -i "s/#LoadModule\ cache_socache_module/LoadModule\ cache_socache_module/" /etc/apache2/httpd.conf \
     && sed -i "s/#LoadModule\ http2_module/LoadModule\ http2_module/" /etc/apache2/httpd.conf \
-    && sed -i "s#^DocumentRoot \".*#DocumentRoot \"/var/www/html\"#g" /etc/apache2/httpd.conf \
-    && sed -i "s#/var/www/localhost/htdocs#/var/www/html#" /etc/apache2/httpd.conf \
-    && printf "\n<Directory \"/var/www/html\">\n\tAllowOverride All\n</Directory>\n" >> /etc/apache2/httpd.conf
+    && sed -i "s#^DocumentRoot \".*#DocumentRoot \"/app/public\"#g" /etc/apache2/httpd.conf \
+    && sed -i "s#/var/www/localhost/htdocs#/app/public#" /etc/apache2/httpd.conf \
+    && printf "\n<Directory \"/app/web\">\n\tAllowOverride All\n</Directory>\n" >> /etc/apache2/httpd.conf
 
-RUN mkdir /var/www/html && chown -R apache:apache /var/www/html && chmod -R 755 /var/www/html && mkdir bootstrap
+RUN mkdir /app && mkdir /app/public && chown -R apache:apache /app && chmod -R 755 /app && mkdir bootstrap
 
 ADD start.sh /bootstrap/
 RUN chmod +x /bootstrap/start.sh
@@ -82,5 +82,7 @@ VOLUME /var/www/html
 VOLUME /etc/apache2/
 
 EXPOSE 80
+
 ENTRYPOINT ["/bootstrap/start.sh"]
+
 WORKDIR /etc/apache2/

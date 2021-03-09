@@ -16,6 +16,8 @@ if [ ! -z "$APACHE_SERVER_NAME" ]
 		echo "NOTICE: Change 'ServerName' globally and hide server message by setting environment variable >> 'APACHE_SERVER_NAME=your.server.name' in docker command or docker-compose file"
 fi
 
+
+
 # PHP Config
 if [ ! -z "$PHP_SENDMAIL" ]; then sed -i "s/\;\?\\s\?sendmail_path = .*/sendmail_path = ${PHP_SENDMAIL////\\/}/" /etc/php7/php.ini && echo "Set PHP sendmail_path = $PHP_SENDMAIL..."; fi
 if [ ! -z "$PHP_SHORT_OPEN_TAG" ]; then sed -i "s/\;\?\\s\?short_open_tag = .*/short_open_tag = $PHP_SHORT_OPEN_TAG/" /etc/php7/php.ini && echo "Set PHP short_open_tag = $PHP_SHORT_OPEN_TAG..."; fi
