@@ -7,7 +7,7 @@ Should allow you to get going with a full LAP stack and support for DB via linke
 ## Build
 
 ```
-docker build . -t haewes/alpine-apache-php7     
+docker build . -t bigjimlefou/alpine-apache-php7     
 ```
 ## Included in this image
 
